@@ -1,9 +1,12 @@
 import { ShopItem } from 'src/shop/shop-item.entity';
+import { User } from 'src/user/user.entity';
 import {
   BaseEntity,
   Column,
   Entity,
   JoinColumn,
+  ManyToMany,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -15,7 +18,10 @@ export class ItemInBasket extends BaseEntity {
 
   @Column()
   count: number;
-  @OneToOne((type) => ShopItem, (entity) => entity.itemInBasket)
+  @ManyToOne((type) => ShopItem, (entity) => entity.itemsInBasket)
   @JoinColumn()
   shopItem: ShopItem;
+  @ManyToOne(type => User , entity => entity.itemsInBasket)
+  @JoinColumn()
+  user:User;
 }
